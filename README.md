@@ -92,11 +92,11 @@ react-employee-status-app/
 │   └── package.json
 ├── src/
 │   ├── components/
-│   │   ├── AddEmployeeModal
+│   │   ├── AddEmployeeModal/
 │   │   │  └──  index.tsx
-│   │   ├── Dropdown
+│   │   ├── Dropdown/
 │   │   │  └──  index.tsx
-│   │   ├── EmployeeList
+│   │   ├── EmployeeList/
 │   │   │  └──  index.tsx...
 │   ├── helpers/
 │   │   └── constants.ts

@@ -15,32 +15,31 @@ const employees = [
     id: 1,
     name: 'John Doe',
     status: 'Working',
-    img: 'example1'
+    img: 'example1.jpg'
   },
   {
     id: 2,
     name: 'Jack Smith',
     status: 'Working',
-    img: 'example2'
+    img: 'example2.jpg'
   },
   {
     id: 3,
     name: 'Sheli',
     status: 'Working',
-    img: 'example3'
+    img: 'example3.jpg'
   },
   {
     id: 4,
     name: 'Eitan',
     status: 'Working',
-    img: 'example4'
+    img: 'example4.jpg'
   },
-
-  { id: 5, name: 'Jane Smith', status: 'OnVacation', img: 'example4' },
-  { id: 6, name: 'Bob Johnson', status: 'LunchTime', img: 'example4' },
-  { id: 7, name: 'Alice Brown', status: 'BusinessTrip', img: 'example4' },
-  { id: 8, name: 'Charlie Wilson', status: 'Working', img: 'example4' },
-  { id: 9, name: 'Joy Tomas', status: 'LunchTime', img: 'example4' },
+  { id: 5, name: 'Jane Smith', status: 'OnVacation', img: 'example5.jpg' },
+  { id: 6, name: 'Bob Johnson', status: 'LunchTime', img: 'example7.jpg' },
+  { id: 7, name: 'Alice Brown', status: 'BusinessTrip', img: 'example3.jpg' },
+  { id: 8, name: 'Charlie Wilson', status: 'Working', img: 'example6.jpg' },
+  { id: 9, name: 'Joy Tomas', status: 'LunchTime', img: 'example4.jpg' },
 ];
 
 app.get('/users', (req, res) => {

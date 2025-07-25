@@ -38,10 +38,13 @@ const EmployeeList = (props: IEmployeeList) => {
     return <p>No employees found.</p>;
   }
 
-  // Helper function to generate avatar URL based on employee name and img property
   const getAvatarUrl = (employee: UserType) => {
-    // Using placeholder images from UI Avatars API
-    // Use the employee's name for the avatar, which will create a more meaningful avatar
+    // Use the images from the public/images folder
+    if (employee.img) {
+      return `/images/${employee.img}`;
+    }
+
+    // Fallback to UI Avatars API if no image is specified
     return `https://ui-avatars.com/api/?name=${encodeURIComponent(employee.name)}&background=random&color=fff&size=64`;
   };
 
