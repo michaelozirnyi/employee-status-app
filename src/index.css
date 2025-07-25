@@ -160,6 +160,26 @@ h3 {
   font-size: 16px;
 }
 
+@media (max-width: 768px) {
+  .list-controls-container {
+    flex-wrap: wrap;
+  }
+
+  .list-controls-container .search-filter-container {
+    margin: 8px 0 0;
+  }
+}
+
+@media (max-width: 568px) {
+  .list-controls-container {
+    margin-bottom: 0;
+  }
+
+  .search-filter-container .status-filter-dropdown {
+    width: 200px;
+  }
+}
+
 /*== Search Input */
 .search-input-container {
   position: relative;
