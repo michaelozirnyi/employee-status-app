@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 // ** Components
 import Dropdown from './../Dropdown';
 
+// ** Helpers
+import getAvatarUrl from '../../helpers/getAvatarUrl';
+
 interface IEmployeeList {
   employees: UserType[];
   onStatusUpdate: (userId: number, newStatus: UserStatusType) => Promise<boolean>;
@@ -24,29 +27,19 @@ const EmployeeList = (props: IEmployeeList) => {
   const handleApplyStatusChanges = async ({ userId, newStatus }: { userId: number, newStatus: UserStatusType }) => {
     if (updatingEmployee.includes(userId) || employees.some(employee => employee.id === userId && employee.status === newStatus)) return;
 
+    // Add employee to updating list
     setUpdatingEmployee(prev => [...prev, userId]);
-    const success = await onStatusUpdate(userId, newStatus);
 
-    if (success) {
+    try {
+      await onStatusUpdate(userId, newStatus);
+    } finally {
       setUpdatingEmployee(prev => prev.filter(id => id !== userId));
-    } else {
-      console.log('Error updating status ', userId);
     }
   };
 
   if (employees.length === 0) {
     return <p>No employees found.</p>;
   }
-
-  const getAvatarUrl = (employee: UserType) => {
-    // Use the images from the public/images folder
-    if (employee.img) {
-      return `/images/${employee.img}`;
-    }
-
-    // Fallback to UI Avatars API if no image is specified
-    return `https://ui-avatars.com/api/?name=${encodeURIComponent(employee.name)}&background=random&color=fff&size=64`;
-  };
 
   return (
     <div className="employee-list">
@@ -56,6 +49,11 @@ const EmployeeList = (props: IEmployeeList) => {
             <div className="employee-card">
               <div className="employee-avatar">
                 <img src={getAvatarUrl(employee)} alt={`${employee.name}'s avatar`} />
+                {updatingEmployee.includes(employee.id) && (
+                  <div className="updating-overlay">
+                    <span>Updating...</span>
+                  </div>
+                )}
               </div>
               <div className="employee-info">
                 <h3>{employee.name}</h3>
@@ -64,6 +62,7 @@ const EmployeeList = (props: IEmployeeList) => {
                   defaultButtonText="Select status"
                   isShowBadge
                   onSelectChange={(selectedStatuses) => handleStatusChange({ employeeId: employee.id, selectedStatuses })}
+                  disabled={updatingEmployee.includes(employee.id)}
                 />
               </div>
             </div>

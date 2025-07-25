@@ -37,8 +37,10 @@ function App() {
       setEmployees(response.data);
 
       return true;
-    } catch (err) {
-      console.error('Error updating employee status:', err);
+    } catch (err: any) {
+      const errorMessage = err.response?.data?.error || 'Error updating employee status';
+      console.error(errorMessage, err);
+      setError(errorMessage);
       return false;
     }
   };
@@ -72,8 +74,10 @@ function App() {
 
         setEmployees(response.data);
         setLoading(false);
-      } catch (err) {
-        setError('Failed to fetch employees');
+        setError(null);
+      } catch (err: any) {
+        const errorMessage = err.response?.data?.error || 'Failed to fetch employees';
+        setError(errorMessage);
         setLoading(false);
         console.error('Error fetching employees:', err);
       }

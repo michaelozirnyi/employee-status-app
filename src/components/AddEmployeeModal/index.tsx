@@ -45,20 +45,17 @@ const AddEmployeeModal = (props: IAddEmployeeModal) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Validate before submission
-    if (!name) {
-      setError('Name is required');
-      return;
-    }
+    const trimmedName = name.trim();
 
-    if (!/^[a-zA-Z\s]+$/.test(name)) {
-      setError('Only English alphabetical characters are allowed');
+    // Validate before submission
+    if (!trimmedName) {
+      setError('Name is required');
       return;
     }
 
     const newEmployee: UserType = {
       id: Date.now(),
-      name,
+      name: trimmedName,
       status,
       img: '',
     }

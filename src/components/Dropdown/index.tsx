@@ -13,6 +13,7 @@ interface IDropdown {
   defaultButtonText?: string;
   isMultiSelect?: boolean;
   isShowBadge?: boolean;
+  disabled?: boolean;
   onSelectChange: (selectedStatuses: string[]) => void;
 }
 
@@ -23,6 +24,7 @@ const Dropdown = (props: IDropdown) => {
     defaultButtonText = 'Filter by status',
     isMultiSelect = false,
     isShowBadge = false,
+    disabled = false,
     onSelectChange,
   } = props;
 
@@ -34,7 +36,9 @@ const Dropdown = (props: IDropdown) => {
 
   // ** handlers
   const toggleDropdown = () => {
-    setIsOpen(!isOpen);
+    if (!disabled) {
+      setIsOpen(!isOpen);
+    }
   };
 
   const handleCheckboxChange = (statusId: string) => {
@@ -88,11 +92,12 @@ const Dropdown = (props: IDropdown) => {
   }, []);
 
   return (
-    <div className={`dropdown ${customClass || ''}`} ref={dropdownRef}>
+    <div className={`dropdown ${customClass || ''} ${disabled ? 'disabled' : ''}`} ref={dropdownRef}>
       <button 
         className="dropdown-toggle" 
         onClick={toggleDropdown}
         type="button"
+        disabled={disabled}
       >
         {isShowBadge && selectedStatuses.length > 0 && (
           <span className={`status-badge status-${selectedStatuses[0]}`} />
@@ -100,7 +105,7 @@ const Dropdown = (props: IDropdown) => {
         <span className="dropdown-toggle-text">{getButtonText()}</span>
         <span className="dropdown-arrow">▼</span>
       </button>
-      
+
       {isOpen && (
         <div className="dropdown-menu">
           {isMultiSelect && (
