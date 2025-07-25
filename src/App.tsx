@@ -29,19 +29,20 @@ function App() {
     setStatusFilter(selectedStatuses);
   };
 
-  const handleStatusUpdate = async (userId: number, newStatus: UserStatusType): Promise<boolean> => {
+  const handleStatusUpdate = async (userId: number, newStatus: UserStatusType): Promise<void> => {
     try {
       const response = await axios.post<UserType[]>(`/users/${userId}`, { status: newStatus });
 
       // Update employees with the response data from the server
       setEmployees(response.data);
 
-      return true;
+      return;
     } catch (err: any) {
       const errorMessage = err.response?.data?.error || 'Error updating employee status';
       console.error(errorMessage, err);
       setError(errorMessage);
-      return false;
+
+      return;
     }
   };
 

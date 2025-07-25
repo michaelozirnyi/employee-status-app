@@ -8,7 +8,7 @@ import getAvatarUrl from '../../helpers/getAvatarUrl';
 
 interface IEmployeeList {
   employees: UserType[];
-  onStatusUpdate: (userId: number, newStatus: UserStatusType) => Promise<boolean>;
+  onStatusUpdate: (userId: number, newStatus: UserStatusType) => Promise<void>;
 }
 
 const EmployeeList = (props: IEmployeeList) => {
