@@ -35,14 +35,31 @@ function App() {
 
       // Update employees with the response data from the server
       setEmployees(response.data);
-
-      return;
     } catch (err: any) {
       const errorMessage = err.response?.data?.error || 'Error updating employee status';
       console.error(errorMessage, err);
       setError(errorMessage);
+    }
+  };
 
-      return;
+  const fetchEmployees = async (
+    setEmployees: React.Dispatch<React.SetStateAction<UserType[]>>,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>,
+    setError: React.Dispatch<React.SetStateAction<string | null>>
+  ) => {
+    try {
+      setLoading(true);
+
+      const response = await axios.get<UserType[]>('/users');
+
+      setEmployees(response.data);
+      setError(null);
+    } catch (err: any) {
+      const errorMessage = err.response?.data?.error || 'Failed to fetch employees';
+      setError(errorMessage);
+      console.error('Error fetching employees:', err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -67,24 +84,7 @@ function App() {
 
   // Fetch employees from the server
   useEffect(() => {
-    const fetchEmployees = async () => {
-      try {
-        setLoading(true);
-
-        const response = await axios.get<UserType[]>('/users');
-
-        setEmployees(response.data);
-        setLoading(false);
-        setError(null);
-      } catch (err: any) {
-        const errorMessage = err.response?.data?.error || 'Failed to fetch employees';
-        setError(errorMessage);
-        setLoading(false);
-        console.error('Error fetching employees:', err);
-      }
-    };
-
-    fetchEmployees();
+    fetchEmployees(setEmployees, setLoading, setError);
   }, []);
 
   return (
